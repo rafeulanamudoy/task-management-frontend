@@ -1,11 +1,17 @@
 /** @type {import('tailwindcss').Config} */
+// eslint-disable-next-line @typescript-eslint/no-var-requires, no-undef
+const defaultTheme = require("tailwindcss/defaultTheme");
 export default {
-  content: [
-    "./src/**/*.{js,jsx,ts,tsx}",
-    "./node_modules/react-tailwindcss-datepicker/dist/index.esm.js",
-  ],
+  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        sans: ["Open Sans", ...defaultTheme.fontFamily.sans],
+      },
+      colors: {
+        "custom-black": "#1B2430",
+      },
+    },
   },
   plugins: [],
 };
