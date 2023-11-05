@@ -1,4 +1,4 @@
-import { IPostSignUpData } from "../../../types/IUser";
+import { IPostSignUpData, ISignInData } from "../../../types/IUser";
 import { baseApi } from "../../api/baseApi";
 
 export const authApi = baseApi.injectEndpoints({
@@ -10,7 +10,14 @@ export const authApi = baseApi.injectEndpoints({
         body: data,
       }),
     }),
+    signIn: build.mutation({
+      query: (data: ISignInData) => ({
+        url: "/auth/signin",
+        method: "POST",
+        body: data,
+      }),
+    }),
   }),
 });
 
-export const { useSignUpMutation } = authApi;
+export const { useSignUpMutation, useSignInMutation } = authApi;

@@ -6,8 +6,16 @@ import Input from "../react-hook/Input";
 
 import { yupResolver } from "@hookform/resolvers/yup";
 import { signInSchema } from "../yup/authSchema";
+import { useSignInMutation } from "../redux/features/auth/authApi";
+import { useAppDispatch } from "../hooks/hook";
+import { setUser } from "../redux/features/auth/authSlice";
+import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 export default function SignIn() {
+  const [login] = useSignInMutation();
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -17,8 +25,21 @@ export default function SignIn() {
   } = useForm({ resolver: yupResolver(signInSchema) });
 
   const onSubmit = async (userData: ISignInData) => {
-    console.log(userData);
-    reset();
+    await login(userData)
+      .unwrap()
+      .then((payload) => {
+        toast.success(payload?.message);
+
+        dispatch(setUser(payload?.data));
+        reset();
+
+        navigate("/");
+      })
+      .catch((error) => {
+        console.log(error, "catch");
+
+        toast.error(error?.data?.message);
+      });
   };
 
   return (

@@ -16,6 +16,7 @@ export default function Header() {
             {" "}
             Home
           </Link>
+
           <button onClick={() => dispatch(logOut())} className="uppercase">
             {" "}
             Logout
