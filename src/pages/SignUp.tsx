@@ -8,11 +8,19 @@ import Input from "../react-hook/Input";
 
 import { yupResolver } from "@hookform/resolvers/yup";
 import { EmailSchema } from "../yup/signUpSchema";
+import { useSignUpMutation } from "../redux/features/auth/authApi";
+import { useNavigate } from "react-router-dom";
+import { useAppDispatch } from "../hooks/hook";
+import { setUser } from "../redux/features/auth/authSlice";
 
 export default function SignUp() {
+  const [postUser] = useSignUpMutation();
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   const {
     register,
     handleSubmit,
+    reset,
 
     formState: { errors },
   } = useForm({ resolver: yupResolver(EmailSchema) });
@@ -25,7 +33,30 @@ export default function SignUp() {
       return;
     }
 
-    console.log(others);
+    const signUpdata = {
+      name: {
+        firstName: others.firstName,
+        lastName: others.lastName,
+      },
+      email: others.email,
+      password: others.password,
+    };
+    console.log(signUpdata);
+    await postUser(signUpdata)
+      .unwrap()
+      .then((payload) => {
+        //console.log(payload);
+        toast.success(payload?.message);
+        dispatch(setUser(payload?.data));
+
+        reset();
+        navigate("/");
+      })
+      .catch((error) => {
+        console.log(error, "catch");
+
+        toast.error(error?.data?.message);
+      });
   };
 
   return (

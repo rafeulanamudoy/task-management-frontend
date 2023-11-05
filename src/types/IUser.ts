@@ -17,3 +17,20 @@ export type ISignUpData = {
   password: string;
   confirmPassword?: string;
 };
+
+export type IPostSignUpData = {
+  name: {
+    firstName: string;
+
+    lastName: string;
+  };
+
+  email: string;
+
+  password: string;
+};
+export type IUserResponseData = {
+  email: string;
+
+  password: string;
+};
