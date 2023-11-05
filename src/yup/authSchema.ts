@@ -1,6 +1,6 @@
 import * as yup from "yup";
 
-export const EmailSchema = yup.object().shape({
+export const signUpSchema = yup.object().shape({
   email: yup
     .string()
     .email("Enter a valid email")
@@ -24,4 +24,12 @@ export const EmailSchema = yup.object().shape({
     .string()
 
     .required("Confirm Password is required"),
+});
+export const signInSchema = yup.object().shape({
+  email: yup
+    .string()
+    .email("Enter a valid email")
+    .required("Email is required"),
+
+  password: yup.string().required("Please enter your password"),
 });

@@ -17,6 +17,11 @@ export type ISignUpData = {
   password: string;
   confirmPassword?: string;
 };
+export type ISignInData = {
+  email: string;
+
+  password: string;
+};
 
 export type IPostSignUpData = {
   name: {

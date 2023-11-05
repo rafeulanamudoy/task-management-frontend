@@ -7,11 +7,12 @@ import Form from "../react-hook/Form";
 import Input from "../react-hook/Input";
 
 import { yupResolver } from "@hookform/resolvers/yup";
-import { EmailSchema } from "../yup/signUpSchema";
+
 import { useSignUpMutation } from "../redux/features/auth/authApi";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../hooks/hook";
 import { setUser } from "../redux/features/auth/authSlice";
+import { signUpSchema } from "../yup/authSchema";
 
 export default function SignUp() {
   const [postUser] = useSignUpMutation();
@@ -23,7 +24,7 @@ export default function SignUp() {
     reset,
 
     formState: { errors },
-  } = useForm({ resolver: yupResolver(EmailSchema) });
+  } = useForm({ resolver: yupResolver(signUpSchema) });
 
   const onSubmit = async (userData: ISignUpData) => {
     const { confirmPassword, ...others } = userData;
