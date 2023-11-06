@@ -2,30 +2,30 @@
 
 ### Application Functionality
 
-## 1.user can add task
+1.user can add task
 
-## 2.user can update task
+2.user can update task
 
-## 3.user can delete task
+3.user can delete task
 
-## 4. user can search the tasked based on the task name
+4.user can search the tasked based on the task name
 
-## 5.user can filter the task by taskStatus and sort the task based on time
+5.user can filter the task by taskStatus and sort the task based on time
 
 ### Technology Used
 
-## 1.ReactJs
+1.ReactJs
 
-## 2.Typescript
+2.Typescript
 
-## 3.Yup for Schema validation
+3.Yup for Schema validation
 
-## 4.React Hook From
+4.React Hook From
 
-## 5. Framer Motion
+5.Framer Motion
 
-## 6.TailwindCss
+6.TailwindCss
 
-## 7. Redux and Redux Persist for state management
+7.Redux and Redux Persist for state management
 
-## 8. React Font Awesome Icon
+8.React Font Awesome Icon
