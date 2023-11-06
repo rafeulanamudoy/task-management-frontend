@@ -1,4 +1,4 @@
-[Task Tracker](hhttps://taskmanagement-tracker.netlify.app)
+[Task Tracker](https://taskmanagement-tracker.netlify.app)
 
 ### Application Functionality
 
