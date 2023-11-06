@@ -31,6 +31,9 @@ export const taskApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["Task"],
     }),
+    filterBySearch: build.query({
+      query: ({ search, userEmail }) => `/task/${userEmail}?search=${search}`,
+    }),
   }),
 });
 
@@ -39,4 +42,5 @@ export const {
   useGetAllTaskQuery,
   useUpdateTaskMutation,
   useDeleteTaskMutation,
+  useFilterBySearchQuery,
 } = taskApi;

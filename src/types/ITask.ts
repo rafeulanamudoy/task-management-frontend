@@ -12,3 +12,10 @@ export type ITaskCartProps = {
 export type ITaskResponse = {
   task: ITask;
 };
+export type ITaskFilter = {
+  filters: {
+    status: string;
+    sort: string;
+  };
+  search?: string;
+};

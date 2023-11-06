@@ -8,7 +8,7 @@ const initialState: ITask = {
   status: "",
 };
 
-export const authSlice = createSlice({
+export const taskSlice = createSlice({
   name: "authReducer",
   initialState,
   reducers: {
@@ -22,5 +22,5 @@ export const authSlice = createSlice({
   },
 });
 
-export const { setUpdateTask } = authSlice.actions;
-export default authSlice.reducer;
+export const { setUpdateTask } = taskSlice.actions;
+export default taskSlice.reducer;

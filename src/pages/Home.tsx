@@ -3,15 +3,19 @@ import { useAppSelector } from "../hooks/hook";
 import { useState } from "react";
 
 import TaskCart from "../components/TaskCart";
-import { useGetAllTaskQuery } from "../redux/features/task/taskApi";
+
 import { ITask } from "../types/ITask";
 
 import AddTaskModal from "../components/modal/AddTaskModal";
+import { useFilterQuery } from "../hooks/useFilterQuery";
 
 export default function Home() {
   const { user } = useAppSelector((state) => state.auth);
   const [isOpen, setIsOpen] = useState(false);
-  const { data } = useGetAllTaskQuery(user?.email);
+
+  const { data: processData } = useFilterQuery();
+
+  console.log(processData, "home to check");
 
   const navigate = useNavigate();
   const handleAddTaskClick = () => {
@@ -34,7 +38,7 @@ export default function Home() {
         <button onClick={handleAddTaskClick}>Add Task</button>
       </div>
       <div className="grid       xl:grid-cols-3  mx-3 gap-4  lg:grid-cols-2  extraSm:grid-cols-1">
-        {data?.data?.data?.map((task: ITask) => (
+        {processData?.data?.map((task: ITask) => (
           <TaskCart key={task?._id} task={task} />
         ))}
       </div>
