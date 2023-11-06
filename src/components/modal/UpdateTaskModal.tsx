@@ -1,5 +1,4 @@
 import { motion, AnimatePresence } from "framer-motion";
-import React from "react";
 
 import Input from "../../react-hook/Input";
 
@@ -12,18 +11,26 @@ import { taskSchema } from "../../yup/taskSchema";
 import Form from "../../react-hook/Form";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDeleteLeft } from "@fortawesome/free-solid-svg-icons";
-import { useCreateTaskMutation } from "../../redux/features/task/taskApi";
+import { useUpdateTaskMutation } from "../../redux/features/task/taskApi";
 import toast from "react-hot-toast";
-import { useAppSelector } from "../../hooks/hook";
+import { useAppDispatch, useAppSelector } from "../../hooks/hook";
+import { useNavigate } from "react-router-dom";
+import { setUpdateTask } from "../../redux/features/task/taskSlice";
 
 type ModalProps = {
   isOpen: boolean;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-export default function TaskModal({ isOpen, setIsOpen }: ModalProps) {
-  const [postTask] = useCreateTaskMutation();
-  const { email } = useAppSelector((state) => state.auth.user);
+export default function UpdateTaskModal({ isOpen, setIsOpen }: ModalProps) {
+  const { _id, status, description, title } = useAppSelector(
+    (state) => state.task
+  );
+
+  const navigate = useNavigate();
+  const [updateTask] = useUpdateTaskMutation();
+  const dispatch = useAppDispatch();
+
   const {
     register,
     handleSubmit,
@@ -33,19 +40,21 @@ export default function TaskModal({ isOpen, setIsOpen }: ModalProps) {
   } = useForm({ resolver: yupResolver(taskSchema) });
 
   const onSubmit = async (data: ITask) => {
-    //console.log(data);
-    const taskData = {
-      userEmail: email,
+    const updateData = {
       title: data.title,
       status: data.status,
       description: data.description,
     };
-    await postTask(taskData)
+    console.log(updateData);
+    await updateTask({ taskId: _id, updateData })
       .unwrap()
       .then((payload) => {
-        toast.success(payload?.message);
+        console.log(payload);
 
-        reset();
+        dispatch(setUpdateTask(payload?.data));
+
+        toast.success(payload?.message);
+        navigate("/");
       })
       .catch((error) => {
         console.log(error, "catch");
@@ -89,7 +98,7 @@ export default function TaskModal({ isOpen, setIsOpen }: ModalProps) {
             </button>
 
             <h2 className="uppercase  text-xl  text-white mx-auto  font-bold text-center ">
-              Add Your Task
+              Update Your Task
             </h2>
 
             <Form
@@ -105,6 +114,7 @@ export default function TaskModal({ isOpen, setIsOpen }: ModalProps) {
                 placeholder="enter  a title"
                 error={errors.title?.message}
                 register={register}
+                defaultValue={title}
                 autoFocus
               />
 
@@ -116,11 +126,12 @@ export default function TaskModal({ isOpen, setIsOpen }: ModalProps) {
                 error={errors.description?.message}
                 register={register}
                 textarea={true}
+                defaultValue={description}
                 autoFocus
               />
 
               <div className="grid gap-3 border  border-slate-400 rounded p-2 text-black ">
-                <select id="status" {...register("status")}>
+                <select defaultValue={status} {...register("status")}>
                   <option value="pending">Pending</option>
                   <option value="inProgress">In Progress</option>
                   <option value="completed">Completed</option>
@@ -130,7 +141,7 @@ export default function TaskModal({ isOpen, setIsOpen }: ModalProps) {
               <input
                 className="submit-button"
                 type="submit"
-                value="Save Task"
+                value="Update Task"
               />
             </Form>
           </div>

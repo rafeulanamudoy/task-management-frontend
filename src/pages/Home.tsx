@@ -2,10 +2,11 @@ import { useNavigate } from "react-router-dom";
 import { useAppSelector } from "../hooks/hook";
 import { useState } from "react";
 
-import TaskModal from "../components/modal/TaskModal";
 import TaskCart from "../components/TaskCart";
 import { useGetAllTaskQuery } from "../redux/features/task/taskApi";
 import { ITask } from "../types/ITask";
+
+import AddTaskModal from "../components/modal/AddTaskModal";
 
 export default function Home() {
   const { user } = useAppSelector((state) => state.auth);
@@ -16,7 +17,8 @@ export default function Home() {
   const handleAddTaskClick = () => {
     if (user?.email) {
       setIsOpen(!isOpen);
-      console.log("clicked");
+
+      //console.log("clicked");
     } else {
       navigate("/signIn");
     }
@@ -37,7 +39,7 @@ export default function Home() {
         ))}
       </div>
 
-      <TaskModal isOpen={isOpen} setIsOpen={setIsOpen} />
+      <AddTaskModal isOpen={isOpen} setIsOpen={setIsOpen} />
     </div>
   );
 }

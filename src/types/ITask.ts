@@ -8,3 +8,7 @@ export type ITask = {
 export type ITaskCartProps = {
   task: ITask;
 };
+
+export type ITaskResponse = {
+  task: ITask;
+};

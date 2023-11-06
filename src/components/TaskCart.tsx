@@ -1,10 +1,45 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ITaskCartProps } from "../types/ITask";
-import { Link } from "react-router-dom";
+import { useState } from "react";
 import { faPen, faTrash } from "@fortawesome/free-solid-svg-icons";
 
+import UpdateTaskModal from "./modal/UpdateTaskModal";
+import { useAppDispatch } from "../hooks/hook";
+import { setUpdateTask } from "../redux/features/task/taskSlice";
+import { useDeleteTaskMutation } from "../redux/features/task/taskApi";
+import toast from "react-hot-toast";
+
 export default function TaskCart({ task }: ITaskCartProps) {
-  console.log(task);
+  const [isOpen, setIsOpen] = useState(false);
+  const dispatch = useAppDispatch();
+  const [deleteTask] = useDeleteTaskMutation();
+
+  // console.log(task);
+  const handleUpdateTask = () => {
+    setIsOpen(!isOpen);
+    dispatch(setUpdateTask(task));
+
+    //console.log("clicked");
+  };
+  const handleDelete = () => {
+    const confirm = window.confirm("are your sure you want to delete");
+    if (task._id && confirm) {
+      deleteTask(task._id)
+        .unwrap()
+        .then((payload) => {
+          toast.success(payload?.message);
+          console.log(payload);
+
+          console.log(payload);
+        })
+        .catch((error) => {
+          console.log(error, "catch");
+
+          toast.error(error?.data?.message);
+        });
+    }
+  };
+
   return (
     <div className="my-5   h-96 p-8 grid grid-cols-8  bg-white   ">
       <div className="col-span-6  ">
@@ -30,13 +65,14 @@ export default function TaskCart({ task }: ITaskCartProps) {
       </div>
 
       <div className=" justify-self-end   col-span-2  flex   mr-3  gap-5  items-start">
-        <Link to="/dashboard/updateService" className=" text-blue-800">
+        <button onClick={handleUpdateTask} className=" text-blue-800">
           <FontAwesomeIcon icon={faPen} />
-        </Link>
-        <button className=" text-red-700">
+        </button>
+        <button onClick={handleDelete} className=" text-red-700">
           <FontAwesomeIcon icon={faTrash} />
         </button>
       </div>
+      <UpdateTaskModal isOpen={isOpen} setIsOpen={setIsOpen} />
     </div>
   );
 }
