@@ -19,11 +19,14 @@ export const taskFilterSlice = createSlice({
 
       state.filters.status = status;
       state.filters.sort = sort;
+      state.search = "";
     },
     setSearch: (state, action: PayloadAction<string>) => {
       //console.log(action.payload);
 
       state.search = action.payload;
+      state.filters.status = "";
+      state.filters.sort = "";
     },
   },
 });

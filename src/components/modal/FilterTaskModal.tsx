@@ -66,6 +66,7 @@ export default function FilterTaskModel({ isOpen, setIsOpen }: ModalProps) {
                   id="availabilityFilter"
                   onChange={(e) => setStaus(e.target.value)}
                 >
+                  <option value="">Choose</option>
                   <option value="pending">Pending</option>
                   <option value="inProgress">In Progress</option>
                   <option value="completed">Completed</option>
@@ -77,6 +78,7 @@ export default function FilterTaskModel({ isOpen, setIsOpen }: ModalProps) {
                   className=" grid w-56 "
                   onChange={(e) => setSort(e.target.value)}
                 >
+                  <option value="">Choose</option>
                   <option value="desc">Descending</option>
                   <option value="asc">Ascending</option>
                 </select>

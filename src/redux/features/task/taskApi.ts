@@ -33,6 +33,21 @@ export const taskApi = baseApi.injectEndpoints({
     }),
     filterBySearch: build.query({
       query: ({ search, userEmail }) => `/task/${userEmail}?search=${search}`,
+      providesTags: ["Task"],
+    }),
+    filterByStatus: build.query({
+      query: ({ status, userEmail }) => `/task/${userEmail}?status=${status}`,
+      providesTags: ["Task"],
+    }),
+    sortingTask: build.query({
+      query: ({ sortOrder, userEmail }) =>
+        `/task/${userEmail}?sortBy=createdAt&sortOrder=${sortOrder}`,
+      providesTags: ["Task"],
+    }),
+    filterByStatusSort: build.query({
+      query: ({ sortOrder, status, userEmail }) =>
+        `/task/${userEmail}?sortBy=createdAt&sortOrder=${sortOrder}&status=${status}`,
+      providesTags: ["Task"],
     }),
   }),
 });
@@ -43,4 +58,7 @@ export const {
   useUpdateTaskMutation,
   useDeleteTaskMutation,
   useFilterBySearchQuery,
+  useFilterByStatusQuery,
+  useSortingTaskQuery,
+  useFilterByStatusSortQuery,
 } = taskApi;
