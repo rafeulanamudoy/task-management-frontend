@@ -9,7 +9,9 @@ export default function Header() {
   const dispatch = useAppDispatch();
   return (
     <div className=" text-white w-3/4      border-b-2 mx-auto flex gap-5 leading-[5rem]  grid-cols-3   items-center  justify-around">
-      <div className="uppercase text-lg ">task Management</div>
+      <div className="uppercase text-lg   font-bold text-yellow-400">
+        Task Tracker
+      </div>
       {user.email ? (
         <nav className=" grid grid-cols-2 gap-5 uppercase  ">
           <Link to="/" className="uppercase">

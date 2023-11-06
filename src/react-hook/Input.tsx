@@ -8,6 +8,7 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   register?: any;
   wrapperClass?: string;
   className?: string;
+  textarea?: boolean;
 }
 
 const Input: FC<InputProps> = ({
@@ -15,6 +16,7 @@ const Input: FC<InputProps> = ({
   name,
   error,
   label,
+  textarea,
 
   ...rest
 }) => {
@@ -26,12 +28,21 @@ const Input: FC<InputProps> = ({
         </label>
       )}
       <div className="    text-center break-words">
-        <input
-          className="  border-b-3 "
-          aria-invalid={error ? "true" : "false"}
-          {...register(name)}
-          {...rest}
-        />
+        {textarea ? (
+          <textarea
+            className="  border-b-3 "
+            aria-invalid={error ? "true" : "false"}
+            {...register(name)}
+            {...rest}
+          />
+        ) : (
+          <input
+            className="  border-b-3 "
+            aria-invalid={error ? "true" : "false"}
+            {...register(name)}
+            {...rest}
+          />
+        )}
         {error && (
           <div className="     text-sm    text-orange-500">{error}</div>
         )}

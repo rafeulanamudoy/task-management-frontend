@@ -9,7 +9,7 @@ import { signInSchema } from "../yup/authSchema";
 import { useSignInMutation } from "../redux/features/auth/authApi";
 import { useAppDispatch } from "../hooks/hook";
 import { setUser } from "../redux/features/auth/authSlice";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 
 export default function SignIn() {
@@ -84,6 +84,12 @@ export default function SignIn() {
               autoFocus
             />
           </div>
+        </div>
+        <div className="flex gap-3 mt-3">
+          <span>Dont have an account</span>
+          <Link to="/signUp" className="underline  text-red-500 ">
+            Register
+          </Link>
         </div>
 
         <input className="submit-button" type="submit" value="Sign In" />

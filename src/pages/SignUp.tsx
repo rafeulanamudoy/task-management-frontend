@@ -9,7 +9,7 @@ import Input from "../react-hook/Input";
 import { yupResolver } from "@hookform/resolvers/yup";
 
 import { useSignUpMutation } from "../redux/features/auth/authApi";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../hooks/hook";
 import { setUser } from "../redux/features/auth/authSlice";
 import { signUpSchema } from "../yup/authSchema";
@@ -150,7 +150,12 @@ export default function SignUp() {
             />
           </div>
         </div>
-
+        <div className="flex gap-3 mt-3">
+          <span>have already an account</span>
+          <Link to="/signIn" className="underline  text-red-500 ">
+            Sign In
+          </Link>
+        </div>
         <input className="submit-button" type="submit" value="Sign Up" />
       </Form>
     </div>
